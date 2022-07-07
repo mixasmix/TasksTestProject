@@ -1,6 +1,6 @@
 $('#submitUserData').on('click', function () {
   let userData = {
-    "name": $('#userName').val(),
+    name: $('#userName').val(),
   };
 
   $.ajax({
@@ -9,7 +9,7 @@ $('#submitUserData').on('click', function () {
     data: JSON.stringify(userData)
   })
     .done(function (serverData) {
-      let data = $.parseJSON(serverData);
+      let data = serverData.data;
 
       $('#register').addClass('visually-hidden');
 
