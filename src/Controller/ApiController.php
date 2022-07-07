@@ -12,6 +12,7 @@ use App\Enum\TaskPriority;
 use App\Enum\TaskStatus;
 use App\Facade\TaskFacade;
 use App\Service\TagService;
+use App\Service\TaskService;
 use App\Service\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +27,13 @@ class ApiController extends AbstractController
      * @param UserService $userService
      * @param TagService  $tagService
      * @param TaskFacade  $taskFacade
+     * @param TaskService $taskService
      */
     public function __construct(
         private UserService $userService,
         private TagService $tagService,
-        private TaskFacade $taskFacade
+        private TaskFacade $taskFacade,
+        private TaskService $taskService
     ) {
     }
 
@@ -156,6 +159,10 @@ class ApiController extends AbstractController
      * @return JsonResponse
      */
     #[Route(path: '/task/{task_id}/status/{task_status}', methods: ['PUT'])]
+    #[Entity(
+        data: 'task',
+        expr: 'repository.getById(task_id)',
+    )]
     public function changeTaskStatus(
         Task $task,
         TaskStatus $taskStatus
@@ -172,6 +179,10 @@ class ApiController extends AbstractController
      * @return JsonResponse
      */
     #[Route(path: '/task/{task_id}/priority/{task_priority}', methods: ['PUT'])]
+    #[Entity(
+        data: 'task',
+        expr: 'repository.getById(task_id)',
+    )]
     public function changeTaskPriority(
         Task $task,
         TaskPriority $priority,
@@ -182,5 +193,29 @@ class ApiController extends AbstractController
                 priority: $priority,
             ),
         ]);
+    }
+
+    /**
+     * @param Task $task
+     * @param Tag  $tag
+     *
+     * @return JsonResponse
+     */
+    #[Route(path: '/task/{task_id}/tag/{tag_name}', methods: ['DELETE'])]
+    #[Entity(
+        data: 'task',
+        expr: 'repository.getById(task_id)',
+    )]
+    #[Entity(
+        data: 'tag',
+        expr: 'repository.getByName(tag_name)',
+    )]
+    public function removeTaskTag(
+        Task $task,
+        Tag $tag
+    ): JsonResponse {
+        $this->taskService->removeTag(task: $task, tag: $tag);
+
+        return $this->json([], Response::HTTP_NO_CONTENT);
     }
 }

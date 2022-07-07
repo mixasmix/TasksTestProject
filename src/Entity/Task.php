@@ -127,6 +127,20 @@ class Task implements JsonSerializable
     }
 
     /**
+     * @param Tag $tag
+     *
+     * @return Task
+     */
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->remove($tag);
+        }
+
+        return $this;
+    }
+
+    /**
      * @param TaskPriority $priority
      *
      * @return Task

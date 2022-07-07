@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Tag;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Enum\TaskPriority;
@@ -11,7 +12,10 @@ use Throwable;
 class TaskService extends AbstractService
 {
     /**
-     * @param string $taskName
+     * @param string       $taskName
+     * @param User         $user
+     * @param TaskPriority $priority
+     * @param array        $tags
      *
      * @return Task
      *
@@ -43,6 +47,21 @@ class TaskService extends AbstractService
 
             throw $exception;
         }
+
+        return $task;
+    }
+
+    /**
+     * @param Task $task
+     * @param Tag  $tag
+     *
+     * @return Task
+     */
+    public function removeTag(Task $task, Tag $tag): Task
+    {
+        $task->removeTag($tag);
+
+        $this->entityManager->flush();
 
         return $task;
     }
