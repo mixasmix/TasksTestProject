@@ -225,6 +225,7 @@ class ApiController extends AbstractController
         Tag $tag
     ): JsonResponse {
         $this->taskService->removeTag(task: $task, tag: $tag);
+        $this->tagService->removeTask(tag: $tag, task: $task);
 
         return $this->json([], Response::HTTP_NO_CONTENT);
     }

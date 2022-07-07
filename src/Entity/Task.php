@@ -134,7 +134,7 @@ class Task implements JsonSerializable
     public function removeTag(Tag $tag): self
     {
         if ($this->tags->contains($tag)) {
-            $this->tags->remove($tag);
+            $this->tags->removeElement($tag);
         }
 
         return $this;

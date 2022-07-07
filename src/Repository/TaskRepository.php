@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,5 +23,25 @@ class TaskRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Task::class);
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return Task
+     *
+     * @throws EntityNotFoundException
+     */
+    public function getById(string $id): Task
+    {
+        $task = $this->find($id);
+
+        if (is_null($task)) {
+            throw new EntityNotFoundException(
+                sprintf('Задача с id %s не найдена', $id),
+            );
+        }
+
+        return $task;
     }
 }

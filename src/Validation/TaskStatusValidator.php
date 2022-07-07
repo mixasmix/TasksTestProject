@@ -12,7 +12,9 @@ class TaskStatusValidator extends AbstractValidator
      */
     protected function getConstraints(): array
     {
-        return [];
+        return [
+            'task_status' => $this->getStatusRules()
+        ];
     }
 
     /**

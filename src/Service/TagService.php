@@ -77,6 +77,21 @@ class TagService extends AbstractService
     }
 
     /**
+     * @param Tag  $tag
+     * @param Task $task
+     *
+     * @return Tag
+     */
+    public function removeTask(Tag $tag, Task $task): Tag
+    {
+        $tag->removeTask($task);
+
+        $this->entityManager->flush();
+
+        return $tag;
+    }
+
+    /**
      * @param Task       $task
      * @param TaskStatus $status
      *
