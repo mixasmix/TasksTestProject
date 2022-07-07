@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Enum\TaskPriority;
 use App\Enum\TaskStatus;
 use App\Facade\TaskFacade;
+use App\Repository\TagRepository;
 use App\Service\TagService;
 use App\Service\TaskService;
 use App\Service\UserService;
@@ -24,16 +25,18 @@ use Throwable;
 class ApiController extends AbstractController
 {
     /**
-     * @param UserService $userService
-     * @param TagService  $tagService
-     * @param TaskFacade  $taskFacade
-     * @param TaskService $taskService
+     * @param UserService   $userService
+     * @param TagService    $tagService
+     * @param TaskFacade    $taskFacade
+     * @param TaskService   $taskService
+     * @param TagRepository $tagRepository
      */
     public function __construct(
         private UserService $userService,
         private TagService $tagService,
         private TaskFacade $taskFacade,
-        private TaskService $taskService
+        private TaskService $taskService,
+        private TagRepository $tagRepository
     ) {
     }
 
@@ -80,11 +83,18 @@ class ApiController extends AbstractController
         CreateTagData $data,
         User $user,
     ): JsonResponse {
-        return $this->json([
-            'data' => $this->tagService->create(
+        $tag = $this->tagRepository->findByName($data->getName());
+
+        //чтобы не плодить одинаковые теги
+        if (is_null($tag)) {
+            $tag = $this->tagService->create(
                 $data->getName(),
                 $user,
-            ),
+            );
+        }
+
+        return $this->json([
+            'data' => $tag,
         ], Response::HTTP_CREATED);
     }
 

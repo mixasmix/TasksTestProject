@@ -26,13 +26,13 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return User
      *
      * @throws EntityNotFoundException
      */
-    public function getById(int $id): User
+    public function getById(string $id): User
     {
         $user = $this->find($id);
 

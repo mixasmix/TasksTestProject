@@ -36,12 +36,22 @@ class TaskFacade
      */
     public function create(CreateTaskData $data, User $user): Task
     {
-        return $this->taskService->create(
+        $tags = $this->getTags($data->getTags(), $user);
+
+        $task = $this->taskService->create(
             taskName: $data->getName(),
             user: $user,
             priority: $data->getPriority(),
-            tags: $this->getTags($data->getTags(), $user),
+            tags: $tags,
         );
+
+        //связываем теги с таском
+        array_map(
+            fn (Tag $tag): Tag => $this->tagService->addTask(tag: $tag, task: $task),
+            $tags,
+        );
+
+        return $task;
     }
 
     /**

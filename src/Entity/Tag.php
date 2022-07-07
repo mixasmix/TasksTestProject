@@ -67,6 +67,15 @@ class Tag implements JsonSerializable
         $this->tasks = new ArrayCollection(array_unique($tasks, SORT_REGULAR));
     }
 
+    public function addTask(Task $task): self
+    {
+        if (!$this->getTasks()->contains($task)) {
+            $this->getTasks()->add($task);
+        }
+
+        return $this;
+    }
+
     /**
      * @return string
      */

@@ -24,7 +24,6 @@ final class Version20220707074801 extends AbstractMigration
         , user_id CHAR(36) DEFAULT NULL --(DC2Type:guid)
         , name VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , PRIMARY KEY(id), CONSTRAINT FK_389B783A76ED395 FOREIGN KEY (user_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_389B783A76ED395 ON tag (user_id)');
         $this->addSql('CREATE TABLE task_tag (task_id CHAR(36) NOT NULL --(DC2Type:guid)
         , tag_id CHAR(36) NOT NULL --(DC2Type:guid)
         , PRIMARY KEY(task_id, tag_id), CONSTRAINT FK_6C0B4F048DB60186 FOREIGN KEY (task_id) REFERENCES tag (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_6C0B4F04BAD26311 FOREIGN KEY (tag_id) REFERENCES task (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');

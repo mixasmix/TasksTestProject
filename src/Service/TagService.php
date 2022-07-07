@@ -12,6 +12,21 @@ use Throwable;
 class TagService extends AbstractService
 {
     /**
+     * @param Tag  $tag
+     * @param Task $task
+     *
+     * @return Tag
+     */
+    public function addTask(Tag $tag, Task $task): Tag
+    {
+        $tag->addTask($task);
+
+        $this->entityManager->flush();
+
+        return $tag;
+    }
+
+    /**
      * @param Task         $task
      * @param TaskPriority $priority
      *
