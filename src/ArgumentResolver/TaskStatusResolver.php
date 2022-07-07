@@ -3,7 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Enum\TaskStatus;
-use App\VAlidation\TaskStatusValidator;
+use App\Validation\TaskStatusValidator;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;

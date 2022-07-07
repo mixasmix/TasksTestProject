@@ -47,9 +47,9 @@ class User implements JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
