@@ -17,7 +17,8 @@
         "doctrine/doctrine-bundle": "2.7.0",
         "symfony/dotenv": "6.1.*",
         "sensio/framework-extra-bundle": "^6.2",
-        "symfony/expression-language": "6.1.*"
+        "symfony/expression-language": "6.1.*",
+        "symfony/uid": "6.1.*"
     },
     "license": "MIT",
     "autoload": {
