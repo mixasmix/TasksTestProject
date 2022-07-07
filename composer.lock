@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50a370baba8f667b081b7b1bf3471ffe",
+    "content-hash": "b2c194f872ac827efbb55c42bef0b556",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2073,12 +2073,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "b5cf7fb2333eb980989cf4399e31faf55ddcfbb0"
+                "reference": "58bbd10f7ff7cc9ada37bfdc5f855a536a054dd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/b5cf7fb2333eb980989cf4399e31faf55ddcfbb0",
-                "reference": "b5cf7fb2333eb980989cf4399e31faf55ddcfbb0",
+                "url": "https://api.github.com/repos/symfony/console/zipball/58bbd10f7ff7cc9ada37bfdc5f855a536a054dd8",
+                "reference": "58bbd10f7ff7cc9ada37bfdc5f855a536a054dd8",
                 "shasum": ""
             },
             "require": {
@@ -2162,7 +2162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-27T17:24:16+00:00"
+            "time": "2022-07-07T07:37:40+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -3157,12 +3157,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "302a9dc2a06287fb68f2d54430045284a76b5f49"
+                "reference": "cb3a0513773363afa0a05e34855a16ff7bdd461f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/302a9dc2a06287fb68f2d54430045284a76b5f49",
-                "reference": "302a9dc2a06287fb68f2d54430045284a76b5f49",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/cb3a0513773363afa0a05e34855a16ff7bdd461f",
+                "reference": "cb3a0513773363afa0a05e34855a16ff7bdd461f",
                 "shasum": ""
             },
             "require": {
@@ -3221,7 +3221,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-04T19:55:05+00:00"
+            "time": "2022-07-07T07:37:45+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -4736,12 +4736,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
-                "reference": "ba695a486de066fc0a6039a5a221323e836ba13a"
+                "reference": "34b0ca0759c386bcd52d551b381a029e0d45bdb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/ba695a486de066fc0a6039a5a221323e836ba13a",
-                "reference": "ba695a486de066fc0a6039a5a221323e836ba13a",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/34b0ca0759c386bcd52d551b381a029e0d45bdb5",
+                "reference": "34b0ca0759c386bcd52d551b381a029e0d45bdb5",
                 "shasum": ""
             },
             "require": {
@@ -4800,7 +4800,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-05T08:35:50+00:00"
+            "time": "2022-07-07T07:37:45+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -5035,7 +5035,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-pdo_sqlite": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
