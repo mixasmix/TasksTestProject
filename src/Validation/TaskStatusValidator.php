@@ -2,20 +2,17 @@
 
 namespace App\Validation;
 
+use App\Enum\TaskStatus;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateTaskDataValidator extends AbstractValidator
+class TaskStatusValidator extends AbstractValidator
 {
     /**
      * @return array
      */
     protected function getConstraints(): array
     {
-        return [
-            'name' => $this->getStringRules(),
-            'priority' => $this->getPriorityRules(),
-            'tags' => $this->getTagsRules(),
-        ];
+        return [];
     }
 
     /**
@@ -29,13 +26,14 @@ class CreateTaskDataValidator extends AbstractValidator
     /**
      * @return array
      */
-    private function getTagsRules(): array
+    private function getStatusRules(): array
     {
         return [
             $this->getNotBlank(),
-            new Assert\All(
-                $this->getStringRules(),
-            ),
+            new Assert\Choice([
+                'value' => TaskStatus::VALID_VALUES,
+                'message' => 'Недопустимое значение статуса',
+            ]),
         ];
     }
 }

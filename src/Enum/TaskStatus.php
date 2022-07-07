@@ -33,7 +33,7 @@ class TaskStatus extends Enum
     /**
      * @return TaskStatus
      */
-    public function work(): self
+    public static function work(): self
     {
         return new self(self::WORK);
     }
@@ -41,7 +41,7 @@ class TaskStatus extends Enum
     /**
      * @return TaskStatus
      */
-    public function cancelled(): self
+    public static function cancelled(): self
     {
         return new self(self::CANCELLED);
     }

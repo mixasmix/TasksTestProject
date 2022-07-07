@@ -39,7 +39,7 @@ class TaskPriority extends Enum
     /**
      * @return TaskPriority
      */
-    public function low(): self
+    public static function low(): self
     {
         return new self(self::LOW);
     }
@@ -47,7 +47,7 @@ class TaskPriority extends Enum
     /**
      * @return TaskPriority
      */
-    public function medium(): self
+    public static function medium(): self
     {
         return new self(self::MEDIUM);
     }
@@ -55,7 +55,7 @@ class TaskPriority extends Enum
     /**
      * @return TaskPriority
      */
-    public function high(): self
+    public static function high(): self
     {
         return new self(self::HIGH);
     }

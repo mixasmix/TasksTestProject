@@ -2,6 +2,7 @@
 
 namespace App\Validation;
 
+use App\Enum\TaskPriority;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -207,6 +208,20 @@ abstract class AbstractValidator
             new Assert\Type([
                 'type' => 'string',
                 'message' => 'Значение должно быть строкой'
+            ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getPriorityRules(): array
+    {
+        return [
+            $this->getNotBlank(),
+            new Assert\Choice([
+                'value' => TaskPriority::VALID_VALUES,
+                'message' => 'Недопустимое значение приоритета',
             ]),
         ];
     }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Enum\TaskPriority;
 use App\Enum\TaskStatus;
 use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,20 +59,20 @@ class Task implements JsonSerializable
 
     /**
      * @param string       $name
-     * @param Collection   $tags
+     * @param array        $tags
      * @param User         $author
      * @param TaskStatus   $status
      * @param TaskPriority $priority
      */
     public function __construct(
         string $name,
-        Collection $tags,
+        array $tags,
         User $author,
         TaskStatus $status,
         TaskPriority $priority,
     ) {
         $this->name = $name;
-        $this->tags = $tags;
+        $this->tags = new ArrayCollection(array_unique($tags, SORT_REGULAR));
         $this->author = $author;
         $this->status = $status;
         $this->priority = $priority;
@@ -126,17 +127,53 @@ class Task implements JsonSerializable
     }
 
     /**
+     * @param TaskPriority $priority
+     *
+     * @return Task
+     */
+    public function updatePriority(TaskPriority $priority): self
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * @param TaskStatus $taskStatus
+     *
+     * @return Task
+     */
+    public function updateStatus(TaskStatus $taskStatus): self
+    {
+        $this->status = $taskStatus;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
-            'tags' => $this->getTags()->toArray(),
             'author' => $this->getAuthor(),
             'status' => $this->getStatus()->getValue(),
             'priority' => $this->getPriority()->getValue(),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return array_merge(
+            $this->toArray(),
+            [
+                'tags' => $this->getTags()->toArray(),
+            ],
+        );
     }
 }
