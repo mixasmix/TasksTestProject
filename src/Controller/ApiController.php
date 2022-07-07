@@ -36,7 +36,7 @@ class ApiController extends AbstractController
         private TagService $tagService,
         private TaskFacade $taskFacade,
         private TaskService $taskService,
-        private TagRepository $tagRepository
+        private TagRepository $tagRepository,
     ) {
     }
 
@@ -44,10 +44,9 @@ class ApiController extends AbstractController
      * @return JsonResponse
      */
     #[Route(path: '/')]
-    public function index(): JsonResponse
+    public function index(): Response
     {
-        return $this->json([
-        ]);
+        return $this->render('base.twig');
     }
 
     /**
