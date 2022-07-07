@@ -1,7 +1,7 @@
 $('#submitUserData').on('click', function () {
+  this.preventDefault;
   let userData = {
     "name": $('#userName').val(),
   };
-
-  $.ajax();
+  console.log(userData);
 });
