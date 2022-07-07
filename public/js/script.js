@@ -1,7 +1,18 @@
 $('#submitUserData').on('click', function () {
-  this.preventDefault;
   let userData = {
-    "name": $('#userName').val(),
+    name: $('#userName').val(),
   };
+
+  $.ajax({
+    url: '/user',
+    method: "POST",
+    data: userData
+  })
+    .done(function () {
+      $('#register').addClass('visually-hidden');
+
+      let userContainer = $('#registeredUser');
+
+    });
   console.log(userData);
 });
