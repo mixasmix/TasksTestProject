@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag implements JsonSerializable
@@ -50,8 +50,8 @@ class Tag implements JsonSerializable
      */
     #[ORM\ManyToMany(targetEntity: Task::class, inversedBy: 'tags')]
     #[ORM\JoinTable(name: 'task_tag')]
-    #[ORM\JoinColumn(name: 'task_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'tag_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'task_id', referencedColumnName: 'id')]
     private Collection $tasks;
 
     /**

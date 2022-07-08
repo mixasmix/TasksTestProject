@@ -6,7 +6,7 @@ $('#submitUserData').on('click', function () {
   $.ajax({
     url: '/user',
     method: "POST",
-    data: JSON.stringify(userData)
+    data: JSON.stringify(userData),
   })
     .done(function (serverData) {
       let data = serverData.data;
@@ -20,19 +20,44 @@ $('#submitUserData').on('click', function () {
       userContainer.find('#userId').text(data.id);
 
       userContainer.removeClass('visually-hidden');
+      $('#addTask').removeClass('visually-hidden');
     });
 });
 
-window.onload = function () {
+$('#submitTaskData').on('click', function () {
+  let taskData = {
+    name: $('#taskName').val(),
+    priority: $('#taskPriority').val(),
+    tags: $('#taskTags').val().split(', ')
+  };
+
+  let userId = $('#userId').text();
+
+  $.ajax({
+    url: '/user/' + userId + '/task',
+    method: "POST",
+    data: JSON.stringify(taskData),
+  })
+    .done(function () {
+      addWindowCards();
+    });
+});
+
+window.onload = addWindowCards();
+
+function addWindowCards() {
+  let taskCardContainer = $('#task-cards div.row');
+
+  taskCardContainer.html('');
+
   $.ajax({
     method: 'GET',
     url: '/task',
   })
     .done(function (serverData) {
-      let taskCardContainer = $('#task-cards div.row');
       serverData.data.map(function (task) {
         taskCardContainer.append(
-          '<div class="feature col">\n' +
+          '<div class="feature col" data-task-id="' + task.id + '">\n' +
           '    <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">\n' +
           '        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>\n' +
           '    </div>\n' +
@@ -40,7 +65,7 @@ window.onload = function () {
           '    <p>Автор: ' + task.author.name + '</p>\n' +
           '    <p class="currentStatus">Текущий статус: <span>' + task.status + '</span></p>\n' +
           '    <p class="currentPriority">Текущий приоритет: <span>' + task.priority + '</span></p>\n' +
-          '    <p class="currentTags">Теги: <span></span></p>\n' +
+          '    <p class="currentTags">Теги: <span class="tag-span"></span></p>\n' +
           '    <label class="form-label">Приоритет</label>' +
           '    <select name="priority" id="priority' + task.id + '">' +
           '       <option value="low">Низкий</option>' +
@@ -55,17 +80,18 @@ window.onload = function () {
           '</div>'
         );
 
-        let tagArea = taskCardContainer.find('p.currentTags span');
-        console.log(task)
-        let tags = task.tags.map(function (tag) {
-          console.log(tag.name)
+        let tagArea = $('div[data-task-id=' + task.id + '] span.tag-span');
+
+        task.tags.map(function (tag) {
           tagArea.append(
-            '<a href="#">' + tag.name + ' <a href="#"  data-tag-name="' + tag.name + '" data-task-id="' + task.id + '" class="btn-close"></a></a> , '
+            '<a href="#" class="tag-link" id="link' + tag.id + '">' + tag.name + ' </a> ' +
+            '<span  data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '" data-task-id="' + task.id + '" class="btn-close"></span>'
           );
-        })
+        });
       });
     });
-};
+  return 1;
+}
 
 let body = $('body');
 
@@ -93,12 +119,13 @@ body.delegate("select[name=status]", "change", function () {
     });
 });
 
-body.delegate('a.btn-close', 'click', function () {
+body.delegate('span.btn-close', 'click', function () {
   let link = $(this);
 
   $.ajax({
     url: '/task/' + link.attr('data-task-id') + '/tag/' + link.attr('data-tag-name'),
     method: 'DELETE',
   });
-  link.parent().remove();
+  link.parent().find('#link' + link.attr('data-tag-id')).remove();
+  link.remove();
 })

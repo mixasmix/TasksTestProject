@@ -239,7 +239,13 @@ class ApiController extends AbstractController
     public function getTasks(): JsonResponse
     {
         return $this->json([
-            'data' => $this->taskRepository->findAll(),
+            'data' => $this->taskRepository->findBy(
+                criteria: [],
+                orderBy: [
+                    'priority' => 'ASC',
+                    'status' => 'ASC'
+                ],
+            ),
         ]);
     }
 }

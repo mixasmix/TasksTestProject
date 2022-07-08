@@ -89,7 +89,6 @@
                 </div>
             </div>
         </form>
-        <h1>test</h1>
     </div>
     <div class="container px-4 py-5 visually-hidden" id="registeredUser">
         <div class="list-group w-auto">
@@ -118,6 +117,32 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container px-4 py-5 visually-hidden" id="addTask">
+        <h2 class="pb-2 border-bottom">Добавить задачу</h2>
+        <form class="needs-validation">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label for="taskName" class="form-label">Название задачи</label>
+                    <input type="text" class="form-control" id="taskName" placeholder="Название задачи" value="" required="">
+                    <br/>
+                    <label for="taskPriority" class="form-label">Выберите приоритет</label>
+                    <select class="form-select" name="taskPriority" id="taskPriority">
+                        <option value="low">Низкий</option>
+                        <option value="medium">Средний</option>
+                        <option value="high">Высокий</option>
+                    </select>
+                    <br/>
+                    <label for="taskTags" class="form-label">Теги</label>
+                    <input type="text" class="form-control" id="taskTags" placeholder="Теги через запятую" value="" required="">
+                    <br/>
+                    <div class="w-100 btn btn-primary btn-lg" id="submitTaskData">Добавить</div>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="b-example-divider"></div>
