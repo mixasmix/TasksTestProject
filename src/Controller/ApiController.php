@@ -12,6 +12,7 @@ use App\Enum\TaskPriority;
 use App\Enum\TaskStatus;
 use App\Facade\TaskFacade;
 use App\Repository\TagRepository;
+use App\Repository\TaskRepository;
 use App\Service\TagService;
 use App\Service\TaskService;
 use App\Service\UserService;
@@ -25,11 +26,12 @@ use Throwable;
 class ApiController extends AbstractController
 {
     /**
-     * @param UserService   $userService
-     * @param TagService    $tagService
-     * @param TaskFacade    $taskFacade
-     * @param TaskService   $taskService
-     * @param TagRepository $tagRepository
+     * @param UserService    $userService
+     * @param TagService     $tagService
+     * @param TaskFacade     $taskFacade
+     * @param TaskService    $taskService
+     * @param TagRepository  $tagRepository
+     * @param TaskRepository $taskRepository
      */
     public function __construct(
         private UserService $userService,
@@ -37,6 +39,7 @@ class ApiController extends AbstractController
         private TaskFacade $taskFacade,
         private TaskService $taskService,
         private TagRepository $tagRepository,
+        private TaskRepository $taskRepository,
     ) {
     }
 
@@ -227,5 +230,16 @@ class ApiController extends AbstractController
         $this->tagService->removeTask(tag: $tag, task: $task);
 
         return $this->json([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    #[Route(path: '/task', methods: ['GET'])]
+    public function getTasks(): JsonResponse
+    {
+        return $this->json([
+            'data' => $this->taskRepository->findAll(),
+        ]);
     }
 }
